@@ -1,6 +1,9 @@
 ---
 - name: Configuration for Integration Test for Users Role
   hosts: all
+  become: true
+  become_user: root
+  become_method: sudo
   roles:
     - { role: users, list: ['max','molly','sadie','charlie','zoe'] }
     - { role: users, list: ['maggie'], sudo: 'nopasswd' }
