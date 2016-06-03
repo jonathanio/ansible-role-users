@@ -1,0 +1,12 @@
+# Don't include Vim and generic backup or temporary files
+.*.sw[a-z0-9]
+.sw[a-z0-9]
+*~
+
+# Ignore these Apple-specific directories
+.DS_Store
+.AppleDouble
+
+# Ignore any test-kitchen specific directories and temporary files
+.kitchen/*
+
