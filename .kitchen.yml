@@ -1,0 +1,52 @@
+---
+platforms:
+  - name: ubuntu-14.04
+    transport:
+      username: ubuntu
+    tags:
+      - Name: ubuntu-14.04-test-kitchen-users
+  - name: ubuntu-16.04
+    transport:
+      username: ubuntu
+    tags:
+      - Name: ubuntu-16.04-test-kitchen-users
+  - name: centos-7
+    transport:
+      username: centos
+    # Ruby 2.0 is installed in custom location. Override
+    # these calls to ensure that serverspec can be installed
+    # and run on the machine (otherwise it won't be found)
+    verifier:
+      bundler_path: /opt/rh/ruby200/root/usr/local/bin
+      rspec_path: /opt/rh/ruby200/root/usr/local/bin
+    tags:
+      - Name: centos-7-test-kitchen-users
+
+# NOTE: This is broken at the moment as it requires two
+#       converge runs before Ansible will be installed.
+#
+# - name: debian-8
+#   transport:
+#     username: admin
+#   # Only 1.7.2 is installed by default. Use source method
+#   # to pull down Ansible 2.0
+#   provisioner:
+#     require_ansible_source: true
+#     ansible_source_rev: stable-2.0
+#   tags:
+#     - Name: debian-8-test-kitchen-users
+
+suites:
+  - name: users
+
+provisioner:
+  name: ansible_playbook
+  hosts: all
+  require_chef_for_busser: false
+  require_ruby_for_busser: true
+
+verifier:
+  name: serverspec
+  sudo_path: true
+  patterns:
+    - "roles/*/test/**/serverspec/users_spec.rb"

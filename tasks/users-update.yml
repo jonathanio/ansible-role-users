@@ -1,0 +1,45 @@
+---
+
+- name: "Get list of current users to update"
+  shell:
+    'getent group | cut -f1 -d:'
+  register:
+    users_present
+  changed_when:
+    False
+  always_run:
+    yes
+  tags:
+    - user_passwords
+    - user_keys
+
+- name: "Update current users passwords"
+  user:
+    name: "{{ item.name }}"
+    password: "{{ item.password }}"
+    update_password: always
+  when:
+    (item.password is defined) and
+    (item.name in users_present.stdout_lines) and
+    ((list is defined and item.name in list) or (list is not defined)) and
+    (item.state is not defined or item.state != "absent")
+  with_items:
+    "{{ user_users }}"
+  tags:
+    - user_passwords
+
+- name: "Update authorized keys for current users"
+  authorized_key:
+    user: "{{ item.0.name }}"
+    key: "{{ item.1.type | default(users_ssh_key_type_default) }} {{ item.1.key }} {{ item.0.mail.address | default(item.0.name) }} {{ '('+item.1.comment+')' if item.1.comment is defined else '' }}"
+    manage_dir: "yes"
+  when:
+    (item.0.name in users_present.stdout_lines) and
+    ((list is defined and item.0.name in list) or (list is not defined)) and
+    (item.0.state is not defined or item.0.state != "absent")
+  with_subelements:
+    - "{{ user_users }}"
+    - ssh_keys
+    - { skip_missing: True }
+  tags:
+    - user_keys

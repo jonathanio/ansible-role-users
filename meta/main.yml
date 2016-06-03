@@ -1,0 +1,24 @@
+---
+galaxy_info:
+  author: Jonathan Wright <jon@than.io>
+  description: Custom user-management role for linux-based systems
+  # issue_tracker_url: http://example.com/issue/tracker
+  license: GPLv3
+  min_ansible_version: 2.0
+  platforms:
+  - name: EL
+    versions:
+    - all
+  - name: Amazon
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
+  - name: Debian
+    versions:
+    - all
+  categories:
+  - system
+  - users
+dependencies: []

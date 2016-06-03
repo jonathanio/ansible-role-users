@@ -1,0 +1,77 @@
+---
+- name: Configuration for Integration Test for Users Role
+  hosts: all
+  roles:
+    - { role: users, list: ['max','molly','sadie','charlie','zoe'] }
+    - { role: users, list: ['maggie'], sudo: 'nopasswd' }
+  vars:
+    user_users:
+      - name: max
+        state: present
+        fullname: Max Dog
+        email: max@example.com
+        password: '$6$4x.W1cci4OPd8ngN$yZBeelYaVq88MRZ.NgWp3HyhjMrDj3ckq77vcV6ipDpGxlZl6sT2UGWol1pTKY6bSosxuAb1c.jlbRXE5YA8A0'
+        sudo: yes
+        ssh_keys: []
+      - name: molly
+        state: present
+        fullname: Molly Dog
+        email: molly@example.com
+        shell: /bin/zsh
+        password: '$6$NxmpE8L0NL$Go2hfSrWz9vz4nLOC5tDz7JrFhkzqsfT/tnCRXqzsAJc80vh4omI9hBPysA8icwYF.Vh3vDA1IdJunf1Uf34w/'
+        sudo: nopasswd
+        ssh_keys: []
+      - name: zoe
+        state: present
+        fullname: Zoe Dog
+        email: zoe@example.com
+        password: '$6$NxmpE8L0NL$Go2hfSrWz9vz4nLOC5tDz7JrFhkzqsfT/tnCRXqzsAJc80vh4omI9hBPysA8icwYF.Vh3vDA1IdJunf1Uf34w/'
+        sudo: custom
+        sudo_custom:
+          - name: root
+            nopasswd: yes
+            command_line: /usr/bin/chmod
+          - command_line: ALL
+        groups:
+          - root
+        ssh_keys:
+          - key: AAAAB3NzaC1yc2EAAAADAQABAAACAQD1N9uJAGA42v0vrve+X005d8ls7Cq2Q+cZKQclT2uOexr5qmwNjTiLw8XQBkvyYUHNeljQxi+p1eUzPX7hWDBdGXjN7w303Be1IUvD9Zmc1I1gMb2uFRu+5KdruSP2ncfCkWrXPkVSnA31ostV0ARkwpWhZ1mFZpudCDPNS+lWxcsj1GspW+s8+7eKQ4hTull9S//X2YmIBiXXAbjAsyPIeTZIQ1DZgEMcTcRCbKeEZOTgbhL3iNfKP17XksUGF6KJlhgNYalNW3VR7pdB1qqM6VUBuPkuxtTJmLzQ1GAJMYouF9thkdcz8VRJekLRuA5yi9wa4qVRQ8/vqHlDRxWRYeILazjpXVnjFZbY79ES4thdxeOKz+PG95MCLCoPmcIEENbKZO1r9qHUvxHwKpkyiAsdnovBnaagQSvdFRUmVW/33zGWfZ0v0xR6h/zABbaB1h1TltljTp80ylwaf29OHyGBxa6RHpIptaAF0+a6Gn+uMwtZaKco5ixNDgeqS2XKO/Hy3UhVw2mH9fomrezFkXSvtn1NUe/xutP8UKSiTBz8gaFWPH3OP9cUI/xpvTJ4gILTzTvCpvBliW51lsPoQv8MHUxKSVlo050nS7u2lJi+zMx+uMkEOhFosbQOlPiCVHZ/eePGTQyYsAMEkkViC/8Yi3eX3800vSEbGsmYzQ==
+          - type: ssh-rsa
+            key: AAAAB3NzaC1yc2EAAAADAQABAAACAQCymOP7K7eUESvuegkivLMlDv3w2kWH0NfIjM9OxtAxrlbCdGFoxPpEqSHmiC0WEshSmh9jM5k4DPXUP/RZxl6itMOxDXpmDGxju/kIr5JpT7X5H74ztkImnnXjqncoYvC4hgwA/l/rML6yphNXQQw4ueBTpCIj/HRMIo3iqwJq0iBlfBfCxN7OyDs0KB/f9+f6VktFkxxNfYf6y7Dj/6g3WIqzpwkKM7qKPlirYS1jWHiF2tgzb1kWER5QgXsmWz2iIIZOzUb9sz0l69s6n2EEUVgHyyl5gpFpb737GZgLNILBMGRkgu7IW/jyhUcGVrFf5BkRx8DBgYCkBjO1j5mHaI3ypzyrSAOKKCW+1l8mZGkZEnq1+XrLELkqremiYWrQVrbSFrJyT1QzbCyBGqrvZrAWdOp9hrmN5m658SRQsIhB3Ol6+fupHAQO+05iHza3YME/tk/FUeEUzpCkU94X24h3yRzvcbUpGuSlGCUNxTXwTzitTPXamnye5ChjdhSNdAvTVLzdhpri3oZiVSa2MnX9whK/wLx6Zv+43H4hTATpVjf+jqQYoxOcw0qBoL9hBckatD32MFqgZpHWlCVLPTwhyHua9JuX2Wn4UTRnaF7j0a3/FRa4z22M2a8yzGnlt3+LtIVOHDAVvpqx2LYFzFJQY41SuukkJ7OFhZXU7w==
+          - type: ssh-dss
+            key: AAAAB3NzaC1kc3MAAACBANIC6DutC/QMgYQOW+kgBKxCCR8VoijwMuwi4h/kcn8R/5aLY6BRFYX59VaJ+yVXZTD0vIDq0oN4iYhcEh3uKVg/LITLGdnZ71sKE+NJgavaemc4kbHZ6Z3pRF/m9gdRqMnWN4KfchoSy9Ho+hf8zQicvqEOt4wwDwpvPYLdhgx5AAAAFQCx+KDUykliz8PvjPTCES0Q2R/cewAAAIA0A7iEfRzNTOfuBsxMkEIFqgffpVfjkujkv0aovO7Dnj25UtQPD0kLj9tFtWO8nv4UDPcbUcuwhQgDyS7tKZeeeVYtz0npKphs2Fkxnq8MiJEU22IjhXcH/6gyaYwGmQ8WKeq5U3y37e9fkTuuZjavmrIKOONUPxZnphKrewCFPgAAAIEAwqnD6taLOvYKuaaXBiuEFhSo/hIQ+Qf0gFN+IZyVDpe/lQR7tEmvH2vRFVMQvST2No0sybdOErkcuI2w4zWnL4n9uVQgxLx0ZaYg1zGFFxOvcHZnGOaoz963VpQVp+ZH2ePD5P8uX4CP8joCqJBc1rm4TdB2/VtBEYAXrVKFwEY=
+            comment: Old Key
+      - name: maggie
+        state: present
+        fullname: Maggie Dog
+        email: maggie@example.com
+        password: '$6$yUrgE/Mhq4vANSG$87wBDEKTTRdauoQg1dzzM02GRsvZcfHebRx230vrFYsOE3OdSGnlw9pGSYh44Io/upI63HXJ9ojJNYBF9WoIj/'
+        sudo: no
+        ssh_keys: []
+      - name: sadie
+        state: present
+        fullname: Sadie Dog
+        email: sadie@example.com
+        password: '$6$yNOpBa9BM$n0E7c0Dqx61H3kcgpa9Et.4QjrUHQ0CnmFRKy8wzh7rBayeL8Z8vAB3Qhn.SgK6/g5bQT7funigZhiR9n6G3p0'
+        sudo: no
+        ssh_keys: []
+      - name: lola
+        state: present
+        fullname: Lola Dog
+        email: lola@example.com
+        password: '$6$CJ1.JtaUmTO$biEYgHuguIk1.D56GKdcsFbcpeOpiea2vTZ40zYvk0ROEOeB38jnfF.97iFlISL54NZ99IHa9/Db5.7u9gKEQ/'
+        sudo: no
+        ssh_keys: []
+      - name: charlie
+        state: absent
+        fullname: Charlie Dog
+        ssh_keys: []
+    user_groups:
+      - name: users
+        state: present
+      - name: staff
+        state: present
+    users_per_user_group: yes
+    users_group_default: users
+    users_groups_default:
+      - staff

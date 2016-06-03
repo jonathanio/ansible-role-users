@@ -1,0 +1,44 @@
+---
+
+- name: "Create per-user groups"
+  group:
+    name: "{{ item.name }}"
+    state: present
+  when:
+    (users_per_user_group) and
+    ((list is defined and item.name in list) or (list is not defined)) and
+    (item.state is not defined or item.state != "absent")
+  with_items:
+    "{{ user_users }}"
+
+- name: "Create users"
+  user:
+    name: "{{ item.name }}"
+    password: "{{ item.password | default(omit) }}"
+    comment: "{{ item.fullname | default('') }},,,"
+    group: "{{ item.name if users_per_user_group else users_group_default }}"
+    groups: "{{ item.groups | default(users_groups_default) | join(',') }}"
+    shell: "{{ item.shell | default(users_shell_default) }}"
+    createhome: "{{ item.create_home | default(users_create_home) }}"
+    home: "{{ item.home | default('/home/' + item.name) }}"
+    update_password: on_create
+  when:
+    ((list is defined and item.name in list) or (list is not defined)) and
+    (item.state is not defined or item.state != "absent")
+  with_items:
+    "{{ user_users }}"
+
+- name: "Create sudoers.d fragments for users"
+  template:
+    src: sudoers.j2
+    dest: "/etc/sudoers.d/{{ item.name }}"
+    owner: root
+    group: root
+    mode: 0640
+  when:
+    ((list is defined and item.name in list) or (list is not defined)) and
+    (item.state is not defined or item.state != "absent") and
+    (sudo is defined or
+     (item.sudo is defined and item.sudo != False))
+  with_items:
+    "{{ user_users }}"

@@ -1,0 +1,10 @@
+---
+
+- name: "Delete common groups"
+  group:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+  when:
+    item.state is defined and item.state == 'absent'
+  with_items:
+    "{{ user_groups }}"

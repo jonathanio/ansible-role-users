@@ -1,0 +1,14 @@
+---
+# tasks file for users
+
+- include: root.yml
+  when:
+    "'root' in list"
+
+- include: groups-present.yml
+- include: users-present.yml
+
+- include: users-update.yml
+
+- include: users-absent.yml
+- include: groups-absent.yml

@@ -1,0 +1,22 @@
+---
+
+- name: "Update the root user's password"
+  user:
+    name: root
+    password: "{{ users_root_password }}"
+    update_password: always
+  when:
+    users_root_password is defined
+  tags:
+    - user_passwords
+
+- name: "Update the root user's authorized keys"
+  authorized_key:
+    user: root
+    key: "{{ item.type | default(users_ssh_key_type_default) }} {{ item.key }} {{ item.comment }}"
+    state: "{{ item.state | default(preset) }}"
+    manage_dir: yes
+  with_items:
+    users_root_ssh_keys
+  tags:
+    - user_keys

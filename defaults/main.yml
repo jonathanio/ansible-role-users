@@ -1,0 +1,17 @@
+---
+# defaults file for users
+
+user_users: []
+user_groups: []
+
+# users_root_password:
+users_root_ssh_keys: []
+
+users_create_home: yes
+users_per_user_group: yes
+users_group_default: users
+users_groups_default: []
+users_shell_default: /bin/bash
+users_sudo_default: false
+
+users_ssh_key_type_default: ssh-rsa

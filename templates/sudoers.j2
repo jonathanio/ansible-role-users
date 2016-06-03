@@ -1,0 +1,28 @@
+# {{ ansible_managed }}
+{% if sudo is defined %}
+{%  set use_sudo = sudo %}
+{% else %}
+{%  if item.sudo is defined %}
+{%    set use_sudo = item.sudo %}
+{%  else %}
+{%    set use_sudo = 'none' %}
+{%  endif %}
+{% endif %}
+
+{% if use_sudo == 'none' %}
+# No sudo permissions defined for {{ item.name }}
+{% elif use_sudo == True %}
+{{ item.name }} ALL=(ALL) ALL
+{% elif use_sudo == 'nopasswd' %}
+{{ item.name }} ALL=(ALL) NOPASSWD:ALL
+{% elif use_sudo == "custom" and item.sudo_custom is defined %}
+{%  for custom in item.sudo_custom %}
+{%    if custom.nopasswd is defined and custom.nopasswd == True %}
+{{ item.name }} ALL=({{ custom.name | default('ALL') }}) NOPASSWD:{{ custom.command_line }}
+{%    else %}
+{{ item.name }} ALL=({{ custom.name | default('ALL') }}) {{ custom.command_line }}
+{%    endif %}
+{%  endfor %}
+{% else %}
+# Access via sudo not permitted for {{ item.name }}
+{% endif %}

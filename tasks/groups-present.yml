@@ -1,0 +1,11 @@
+---
+
+- name: "Create common groups"
+  group:
+    name: "{{ item.name }}"
+    state: "{{ item.state | default('present') }}"
+  when:
+    (item.state is not defined) or
+    (item.state is defined and item.state != 'absent')
+  with_items:
+    "{{ user_groups }}"
