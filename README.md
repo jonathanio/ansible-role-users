@@ -4,7 +4,7 @@ A role to manage user configuration on linux-based systems.
 
 ## Requirements
 
-None. Well, probably Linux to run on.
+None. Well, probably Linux to run it on.
 
 ## Role Variables
 
@@ -112,7 +112,7 @@ Including an example of how to use your role (for instance, with variables passe
 
 ## License
 
-GPLv2
+GPLv3
 
 ## Author Information
 
