@@ -5,8 +5,8 @@
   become_user: root
   become_method: sudo
   roles:
-    - { role: users, list: ['max','molly','sadie','charlie','zoe'] }
-    - { role: users, list: ['maggie'], sudo: 'nopasswd' }
+    - { role: ansible-role-users, list: ['max','molly','sadie','charlie','zoe'] }
+    - { role: ansible-role-users, list: ['maggie'], sudo: 'nopasswd' }
   vars:
     user_users:
       - name: max
