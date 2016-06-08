@@ -116,4 +116,4 @@ GPLv3
 
 ## Author Information
 
-Jonathan Wright <github@jon.than.io>
+Jonathan Wright <jon@than.io>
