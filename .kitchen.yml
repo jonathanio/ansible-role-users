@@ -3,13 +3,21 @@ platforms:
   - name: ubuntu-14.04
     transport:
       username: ubuntu
-    tags:
-      - Name: ubuntu-14.04-test-kitchen-users
+    driver:
+      tags:
+        Name: anisble-test-kitchen-role-users-ubuntu-1404
+        CreatedBy: test-kitchen
+        TestKitchenRole: users
+        TestKitchenPlatform: ubuntu-1404
   - name: ubuntu-16.04
     transport:
       username: ubuntu
-    tags:
-      - Name: ubuntu-16.04-test-kitchen-users
+    driver:
+      tags:
+        Name: anisble-test-kitchen-role-users-ubuntu-1604
+        CreatedBy: test-kitchen
+        TestKitchenRole: users
+        TestKitchenPlatform: ubuntu-1604
   - name: centos-7
     transport:
       username: centos
@@ -19,8 +27,12 @@ platforms:
     verifier:
       bundler_path: /opt/rh/ruby200/root/usr/local/bin
       rspec_path: /opt/rh/ruby200/root/usr/local/bin
-    tags:
-      - Name: centos-7-test-kitchen-users
+    driver:
+      tags:
+        Name: anisble-test-kitchen-role-users-centos-7
+        CreatedBy: test-kitchen
+        TestKitchenRole: users
+        TestKitchenPlatform: centos-7
 
 # NOTE: This is broken at the moment as it requires two
 #       converge runs before Ansible will be installed.
@@ -33,8 +45,12 @@ platforms:
 #   provisioner:
 #     require_ansible_source: true
 #     ansible_source_rev: stable-2.0
-#   tags:
-#     - Name: debian-8-test-kitchen-users
+#   driver:
+#     tags:
+#       Name: anisble-test-kitchen-role-users-debian-8
+#       CreatedBy: test-kitchen
+#       TestKitchenRole: users
+#       TestKitchenPlatform: debian-8
 
 suites:
   - name: users
@@ -42,8 +58,6 @@ suites:
 provisioner:
   name: ansible_playbook
   hosts: all
-  require_chef_for_busser: false
-  require_ruby_for_busser: true
 
 verifier:
   name: serverspec
