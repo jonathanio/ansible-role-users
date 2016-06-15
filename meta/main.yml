@@ -1,8 +1,8 @@
 ---
 galaxy_info:
   author: Jonathan Wright <jon@than.io>
-  description: Custom user-management role for linux-based systems
-  # issue_tracker_url: http://example.com/issue/tracker
+  description: Custom user-management role for linux-based systems, with test-kitchen/serverspec tests.
+  issue_tracker_url: https://github.com/jonathanio/ansible-role-users/issues
   license: GPLv3
   min_ansible_version: 2.0
   platforms:
