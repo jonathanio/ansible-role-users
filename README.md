@@ -112,7 +112,7 @@ Including an example of how to use your role (for instance, with variables passe
 
 ## License
 
-GPLv3
+This project is under the *BSD* License. See the `LICENSE` file for the full license text.
 
 ## Author Information
 

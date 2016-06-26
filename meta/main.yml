@@ -3,22 +3,25 @@ galaxy_info:
   author: Jonathan Wright <jon@than.io>
   description: Custom user-management role for linux-based systems, with test-kitchen/serverspec tests.
   issue_tracker_url: https://github.com/jonathanio/ansible-role-users/issues
-  license: GPLv3
+  github_branch: master
+  license: BSD
   min_ansible_version: 2.0
   platforms:
-  - name: EL
-    versions:
-    - all
-  - name: Amazon
-    versions:
-    - all
-  - name: Ubuntu
-    versions:
-    - all
-  - name: Debian
-    versions:
-    - all
-  categories:
-  - system
-  - users
+    - name: EL
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+    - name: ArchLinux
+      versions:
+        - all
+  galaxy_tags:
+    - system
+    - users
+    - test-kitchen
+
 dependencies: []
