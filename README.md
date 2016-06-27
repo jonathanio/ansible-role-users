@@ -1,5 +1,7 @@
 # Ansible Users
 
+[![Galaxy](http://img.shields.io/badge/galaxy-jonathanio.users-blue.svg?style=flat-square)](https://galaxy.ansible.com/jonathanio/users)
+
 A role to manage user configuration on linux-based systems.
 
 ## Requirements
