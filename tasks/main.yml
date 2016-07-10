@@ -3,7 +3,7 @@
 
 - include: root.yml
   when:
-    "'root' in list"
+    list is defined and 'root' in list
 
 - include: groups-present.yml
 - include: users-present.yml
