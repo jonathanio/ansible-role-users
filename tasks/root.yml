@@ -17,6 +17,6 @@
     state: "{{ item.state | default(preset) }}"
     manage_dir: yes
   with_items:
-    users_root_ssh_keys
+    "{{ users_root_ssh_keys }}"
   tags:
     - user_keys
