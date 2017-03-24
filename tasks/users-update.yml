@@ -7,8 +7,8 @@
     users_present
   changed_when:
     False
-  always_run:
-    yes
+  check_mode:
+    no
   tags:
     - user_passwords
     - user_keys
