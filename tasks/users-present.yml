@@ -22,6 +22,7 @@
     createhome: "{{ item.create_home | default(users_create_home) }}"
     home: "{{ item.home | default('/home/' + item.name) }}"
     update_password: on_create
+    uid: "{{ item.uid | default(omit) }}"
   when:
     ((list is defined and item.name in list) or (list is not defined)) and
     (item.state is not defined or item.state != "absent")
