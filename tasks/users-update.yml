@@ -31,7 +31,7 @@
 - name: "Update authorized keys for current users"
   authorized_key:
     user: "{{ item.0.name }}"
-    key: "{{ item.1.type | default(users_ssh_key_type_default) }} {{ item.1.key }} {{ item.0.email | default(item.0.name) }} {{ '('+item.1.comment+')' if item.1.comment is defined else '' }}"
+    key: "{{ item.1.type | default(users_ssh_key_type_default) }} {{ item.1.key }} {{ item.1.comment if item.1.comment is defined else '' }}"
     manage_dir: "yes"
   when:
     (item.0.name in users_present.stdout_lines) and
